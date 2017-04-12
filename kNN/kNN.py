@@ -6,6 +6,21 @@ def createDataSet():
     labels = ['A','A','B','B']
     return group,labels
 
+def file2matrix(filename):
+    fr = open(filename)
+    arrayOLines = fr.readlines()
+    numberOfLines = len(arrayOLines)
+    returnMat = zeros((numberOfLines, 3))
+    classLabelVector = []
+    index = 0
+    for line in arrayOLines:
+        line = line.strip()
+        listFromline = line.split('\t')
+        returnMat[index,:] = listFromline[0:3]
+        classLabelVector.append(int(listFromline[-1]))
+        index += 1
+    return returnMat,classLabelVector
+
 def classify0(inX, dataSet, labels, k):
     #计算距离
     dataSetSize = dataSet.shape[0]
