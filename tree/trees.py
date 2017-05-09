@@ -13,7 +13,7 @@ def calcShannEnt(dataSet):
     labelCounts = {}
     for featVec in dataSet:
         currentLabel = featVec[-1]
-        if currentLabel not in labelCounts.keys():
+        if currentLabel not in labelCounts.keys():#如果字典中还没有这个Label则加入
             labelCounts[currentLabel] = 0
         labelCounts[currentLabel] += 1
     shannonEnt = 0.0
@@ -53,6 +53,7 @@ def chooseBestFeatureToSplit(dataSet):
             subDataSet = splitDataSet(dataSet, i, value)
             prob = len(subDataSet)/float(len(dataSet))
             newEntropy += prob * calcShannEnt(subDataSet)
+        #信息增益=原始数据集的熵-所有分支信息熵的和
         infoGain = baseEntropy - newEntropy
         if infoGain > bestInfoGain:
             bestInfoGain = infoGain
@@ -88,13 +89,13 @@ def createTree(dataSet, labels):
 
 def storeTree(inputTree, filename):
     import pickle
-    fw = open(filename, 'wb')
+    fw = open(filename, 'wb')  #pickle默认为二进制读写
     pickle.dump(inputTree, fw)
     fw.close()
     
 def grabTree(filename):
     import pickle
-    fr = open(filename, 'rb')
+    fr = open(filename, 'rb')  #pickle默认为二进制读写
     return pickle.load(fr)
 
 def classify(inputTree, featLabels, testVec):
