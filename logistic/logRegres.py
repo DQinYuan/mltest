@@ -30,7 +30,7 @@ def gradAscent(dataMatIn, classLabels):
     for k in range(maxCycles):
         h = sigmoid(dataMatrix * weights)
         error = labelMat - h
-        weights = weights + alpha * dataMatrix.transpose() * error            #疑惑？为什么可以这样计算梯度
+        weights = weights + alpha * dataMatrix.transpose() * error    #疑惑？为什么可以这样计算梯度
     return weights
     
 def plotBestFit(wei):
